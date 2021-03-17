@@ -246,13 +246,17 @@ public class Lab3 {
 
          */
 
-        Pattern p = Pattern.compile("\\+?\\d{11,}");
-        String text = "Мои номера 8(904)-378-16-61 и +7(904)3781661";
-        String[] s = p.split(text);
-//        for (String x: s){
-//            System.out.println(x);
-//        }
-        Matcher m = p.matcher(text);
+        /* 10
+        Используйте регулярные выражения из предыдущего
+        задания для того, чтобы извлечь из строки
+        "Мои номера 220-30-40 и 8904-378-16-61 не считая служебных"
+        все содержащиеся в ней номера телефонов
+         */
+        String mobilPhone = "([+]7|8)([(]|\s|-?)\\d{3}([)]|\s|-?)(\s|-?)\\d{3}(\s|-?)\\d{2}(\s|-?)\\d{2}";
+        String homePhone = "(2|3)(\s|-?)\\d{2}(\s|-?)\\d{2}(\s|-?)\\d{2}";
+        Pattern mobilPhon = Pattern.compile(mobilPhone+"|"+homePhone);
+        String text = "Мои номера 8(904)-378-16-61 и +7(904)3781661. Мои номера 220-30-40 и 8904-378-16-61 не считая служебных.";
+        Matcher m = mobilPhon.matcher(text);
         while (m.find()) {
             int begin = m.start();
             int end = m.end();
