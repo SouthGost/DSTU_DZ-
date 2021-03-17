@@ -139,27 +139,27 @@ public class Lab3 {
         с точным значением
          */
 
-        Scanner in = new Scanner(System.in);
-        double[] x = new double [101];
-        double[] y = new double [101];
-        System.out.println("Введите интервал x1 и x2");
-        x[0] = in.nextDouble();
-        x[100] = in.nextDouble();
-        y[0]=f2(x[0]);
-        double shag = (x[100]-x[0])/100;
-        for (int i = 1;i<100;i++){
-            x[i]=x[i-1]+shag;
-            y[i]=f2(x[i]);
-        }
-        y[100]=f2(x[100]);
-        for (int i = 0;i<101;i++){
-            System.out.printf("%5.3f\t%7.3f\n",x[i],y[i]);
-        }
-        System.out.println("-------------------------");
-        integralLeft(x,y);
-        for (int i = 0;i<101;i++){
-            System.out.printf("%5.3f\t%7.3f\n",x[i],integral(x[i]));
-        }
+//        Scanner in = new Scanner(System.in);
+//        double[] x = new double [101];
+//        double[] y = new double [101];
+//        System.out.println("Введите интервал x1 и x2");
+//        x[0] = in.nextDouble();
+//        x[100] = in.nextDouble();
+//        y[0]=f2(x[0]);
+//        double shag = (x[100]-x[0])/100;
+//        for (int i = 1;i<100;i++){
+//            x[i]=x[i-1]+shag;
+//            y[i]=f2(x[i]);
+//        }
+//        y[100]=f2(x[100]);
+//        for (int i = 0;i<101;i++){
+//            System.out.printf("%5.3f\t%7.3f\n",x[i],y[i]);
+//        }
+//        System.out.println("-------------------------");
+//        integralLeft(x,y);
+//        for (int i = 0;i<101;i++){
+//            System.out.printf("%5.3f\t%7.3f\n",x[i],integral(x[i]));
+//        }
 
 
         /* 7
@@ -195,8 +195,27 @@ public class Lab3 {
 //        for(int i=0;i<p.length;i++){
 //            System.out.print(p[i]);
 //        }
-        //System.out.println("\n"+Integer.toString( x, b ));
+//        System.out.println("\n"+Integer.toString( x, b ));
 
+        /* 8
+        Реализуйте вычисление значения полинома n-й степени по
+        схеме Горнера. Суть схемы в том, что запись полинома
+        P(x) = an * x
+        n + an-1 * x
+        n-1 + … + a0 преобразуется в
+        P(x) = (…((an * x + an-1) * x + an-2) * x + …) * x + a0
+        Полином в программе представляется массивом его коэффициентов
+        (массив из n+1 элемента), а сами вычисления выполняются в цикле так,
+        что в начале P = an * x + an-1, а затем на каждой итерации P = P * x + ai.
+         */
+
+//        double[] a = { 1,2,3,4};
+//        double x= 2;
+//        double p = a[0];
+//        for (int i=1;i<a.length;i++){
+//            p=p*x+a[i];
+//        }
+//        System.out.println(p);
 
         /* 9
         Сформируйте регулярное выражение для проверки того,
