@@ -113,7 +113,20 @@ public class Lab3 {
         взаимоположении.
          */
 
-//        circleChek();
+
+//        Scanner in = new Scanner(System.in);
+//        double x,y,r;
+//        System.out.println("Введите x y r 1-ого круга");
+//        x = in.nextDouble();
+//        y = in.nextDouble();
+//        r = in.nextDouble();
+//        circle c1 = new circle(x,y,r);
+//        System.out.println("Введите x y r 2-ого круга");
+//        x = in.nextDouble();
+//        y = in.nextDouble();
+//        r = in.nextDouble();
+//        circle c2 = new circle(x,y,r);
+//        circleChek(c1,c2);
 
         /* 6
         Написать метод, реализующий алгоритм численного
@@ -126,24 +139,28 @@ public class Lab3 {
         с точным значением
          */
 
-//        Scanner in = new Scanner(System.in);
-//        double[] x = new double [101];
-//        double[] y = new double [101];
-//        System.out.println("Введите интервал x1 и x2");
-//        x[0] = in.nextDouble();
-//        x[100] = in.nextDouble();
-//        y[0]=f2(x[0]);
-//        double shag = (x[100]-x[0])/100;
-//        for (int i = 1;i<100;i++){
-//            x[i]=x[i-1]+shag;
-//            y[i]=f2(x[i]);
-//        }
-//        y[100]=f2(x[100]);
-//        for (int i = 0;i<101;i++){
-//            System.out.printf("%5.3f\t%7.3f\n",x[i],y[i]);
-//        }
-//        System.out.println("-------------------------");
-//        integral(x,y);
+        Scanner in = new Scanner(System.in);
+        double[] x = new double [101];
+        double[] y = new double [101];
+        System.out.println("Введите интервал x1 и x2");
+        x[0] = in.nextDouble();
+        x[100] = in.nextDouble();
+        y[0]=f2(x[0]);
+        double shag = (x[100]-x[0])/100;
+        for (int i = 1;i<100;i++){
+            x[i]=x[i-1]+shag;
+            y[i]=f2(x[i]);
+        }
+        y[100]=f2(x[100]);
+        for (int i = 0;i<101;i++){
+            System.out.printf("%5.3f\t%7.3f\n",x[i],y[i]);
+        }
+        System.out.println("-------------------------");
+        integralLeft(x,y);
+        for (int i = 0;i<101;i++){
+            System.out.printf("%5.3f\t%7.3f\n",x[i],integral(x[i]));
+        }
+
 
         /* 7
         Написать приложение для преобразования целого числа из
@@ -210,27 +227,32 @@ public class Lab3 {
 
          */
 
-        Pattern p = Pattern.compile("[[+][(][)][-]\\d]{11,}");
-        String text = "Мои номера 8(904)-378-16-61 и +7(904)3781661";
-        String[] s = p .split(text);
-//        for (String x: s){
-//            System.out.println(x);
-//        }
-        Matcher m = p.matcher(text);
-        while(m.find()) {
-            int begin = m.start();
-            int end = m.end();
-            System.out.println(text.substring(begin, end));
+//        Pattern p = Pattern.compile("[[+][(][)][-]\\d]{11,}");
+//        String text = "Мои номера 8(904)-378-16-61 и +7(904)3781661";
+//        String[] s = p .split(text);
+////        for (String x: s){
+////            System.out.println(x);
+////        }
+//        Matcher m = p.matcher(text);
+//        while(m.find()) {
+//            int begin = m.start();
+//            int end = m.end();
+//            System.out.println(text.substring(begin, end));
+        }
+
+
+////////////////////////////////////////
+    public static void integralLeft(double[] x,double[] y){
+        double[] y2 = new double[101];
+        for (int i = 0;i<100;i++){
+            y2[i]= y[i]*(x[i]-x[i+1]);
+            System.out.printf("%5.3f\t%7.3f\n",x[i],y2[i]);
         }
 
     }
-////////////////////////////////////////
-    public static void integral(double[] x,double[] y){
-        double[] y2 = new double[101];
-        for (int i = 0;i<101;i++){
-            y2[i]= y[i]*(x[i]-x[0]);
-            System.out.printf("%5.3f\t%7.3f\n",x[i],y2[i]);
-        }
+
+    public static double integral(double x){
+        return Math.exp(x)-x*x*x*x/4;
 
     }
 
@@ -238,48 +260,50 @@ public class Lab3 {
         return Math.exp(x)-x*x*x;
     }
 
-    public static int circleChek(){
-        Scanner in = new Scanner(System.in);
-        double x1,x2,y1,y2,r1,r2,r;
-        System.out.println("Введите x y r 1-ого круга");
-        x1 = in.nextDouble();
-        y1 = in.nextDouble();
-        r1 = in.nextDouble();
-        System.out.println("Введите x y r 2-ого круга");
-        x2 = in.nextDouble();
-        y2 = in.nextDouble();
-        r2 = in.nextDouble();
-        r = Math.sqrt(Math.pow(Math.abs(x2-x1),2)+Math.pow(Math.abs(y2-y1),2));
-        if(r>r1+r2){
+    public static int circleChek(circle c1, circle c2){
+        double r = Math.sqrt(Math.pow(Math.abs(c2.x-c1.x),2)+Math.pow(Math.abs(c2.y-c1.y),2));
+        if(r>c1.r+c2.r){
             System.out.println("Круги не пересекаются");
             return 0;
-        } else if(r == r1+r2){
+        } else if(r == c1.r+c2.r){
             System.out.println("Круги касаются");
             return 1;
-        }else if(r < r1+r2 && r>Math.abs(r1-r2)){
+        }else if(r < c1.r+c2.r && r>Math.abs(c1.r-c2.r)){
             System.out.println("Круги имеют 2 точки пересечения");
             return 2;
         } else if(r == 0){
             System.out.println("Круги совпадают");
             return 8;
-        } else if(r == Math.abs(r1-r2)){
+        } else if(r == Math.abs(c1.r-c2.r)){
             System.out.println("Круги касаются");
-            if(r1<r2){
+            if(c1.r<c2.r){
                 System.out.println("Круг 1 внутри 2");
                 return 121;
-            }else if(r1>r2){
+            }else if(c1.r>c2.r){
                 System.out.println("Круг 2 внутри 1");
                 return 211;
             }
-        }else if(r < Math.abs(r1-r2)){
-            if(r1<r2){
+        }else if(r < Math.abs(c1.r-c2.r)){
+            if(c1.r<c2.r){
                 System.out.println("Круг 1 внутри 2");
                 return 120;
-            }else if(r1>r2){
+            }else if(c1.r>c2.r){
                 System.out.println("Круг 2 внутри 1");
                 return 210;
             }
         }
         return 404;
+    }
+}
+
+class circle{
+    double x;
+    double y;
+    double r;
+
+    public circle(double x,double y,double r){
+        this.x=x;
+        this.y=y;
+        this.r=r;
     }
 }
