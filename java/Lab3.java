@@ -126,7 +126,7 @@ public class Lab3 {
 //        y = in.nextDouble();
 //        r = in.nextDouble();
 //        circle c2 = new circle(x,y,r);
-//        circleChek(c1,c2);
+//        System.out.println(circleChek(c1,c2));
 
         /* 6
         Написать метод, реализующий алгоритм численного
@@ -246,18 +246,19 @@ public class Lab3 {
 
          */
 
-//        Pattern p = Pattern.compile("[[+][(][)][-]\\d]{11,}");
-//        String text = "Мои номера 8(904)-378-16-61 и +7(904)3781661";
-//        String[] s = p .split(text);
-////        for (String x: s){
-////            System.out.println(x);
-////        }
-//        Matcher m = p.matcher(text);
-//        while(m.find()) {
-//            int begin = m.start();
-//            int end = m.end();
-//            System.out.println(text.substring(begin, end));
+        Pattern p = Pattern.compile("\\+?\\d{11,}");
+        String text = "Мои номера 8(904)-378-16-61 и +7(904)3781661";
+        String[] s = p.split(text);
+//        for (String x: s){
+//            System.out.println(x);
+//        }
+        Matcher m = p.matcher(text);
+        while (m.find()) {
+            int begin = m.start();
+            int end = m.end();
+            System.out.println(text.substring(begin, end));
         }
+    }
 
 
 ////////////////////////////////////////
@@ -279,41 +280,44 @@ public class Lab3 {
         return Math.exp(x)-x*x*x;
     }
 
-    public static int circleChek(circle c1, circle c2){
+
+    public static circleСrossing circleChek(circle c1, circle c2){
         double r = Math.sqrt(Math.pow(Math.abs(c2.x-c1.x),2)+Math.pow(Math.abs(c2.y-c1.y),2));
         if(r>c1.r+c2.r){
             System.out.println("Круги не пересекаются");
-            return 0;
+            return circleСrossing.crossing0;
         } else if(r == c1.r+c2.r){
             System.out.println("Круги касаются");
-            return 1;
+            return circleСrossing.crossing1;
         }else if(r < c1.r+c2.r && r>Math.abs(c1.r-c2.r)){
             System.out.println("Круги имеют 2 точки пересечения");
-            return 2;
+            return circleСrossing.crossing2;
         } else if(r == 0){
             System.out.println("Круги совпадают");
-            return 8;
+            return circleСrossing.coincidence;
         } else if(r == Math.abs(c1.r-c2.r)){
             System.out.println("Круги касаются");
             if(c1.r<c2.r){
                 System.out.println("Круг 1 внутри 2");
-                return 121;
+                return circleСrossing.circle1in2crossing;
             }else if(c1.r>c2.r){
                 System.out.println("Круг 2 внутри 1");
-                return 211;
+                return circleСrossing.circle2in1crossing;
             }
         }else if(r < Math.abs(c1.r-c2.r)){
             if(c1.r<c2.r){
                 System.out.println("Круг 1 внутри 2");
-                return 120;
+                return circleСrossing.circle1in2;
             }else if(c1.r>c2.r){
                 System.out.println("Круг 2 внутри 1");
-                return 210;
+                return circleСrossing.circle2in1;
             }
         }
-        return 404;
+        return circleСrossing.crossing404;
     }
 }
+
+enum circleСrossing{ crossing0,crossing1, crossing2,coincidence,circle1in2,circle2in1,circle1in2crossing,circle2in1crossing,crossing404}
 
 class circle{
     double x;
