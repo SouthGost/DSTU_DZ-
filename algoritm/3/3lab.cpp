@@ -39,7 +39,8 @@ void FreePointer(int &p) {
 
 int main(){
     setlocale(LC_ALL, "Russian");
-
+    
+    /* 1
     int a = 3;
     int b = 6;
     int* t =  &a;
@@ -52,11 +53,7 @@ int main(){
     FreePointer(*c);
     ReadPointer(c);
     ReadPointer(t);
-    //cout << *t << endl;
-   // t = c;
-
-   // FreePointer(*t);
-   // cout << *c << endl;
+    */
 
 
     /* 2
