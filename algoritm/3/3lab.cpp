@@ -1,4 +1,4 @@
-﻿#include <iostream>
+#include <iostream>
 using namespace std;
 
 void transleteToEng(const char* strRus, char** rus, char** eng) {
@@ -29,8 +29,8 @@ void ReadPointer(int* p) {
     cout << *p << endl;
 }
 
-void SetPointer(int* p1, int* p2) {
-    p1 = p2;
+void SetPointer(int** p1, int* p2) {
+    *p1 = p2;
 }
 
 void FreePointer(int &p) {
@@ -39,7 +39,17 @@ void FreePointer(int &p) {
 
 int main(){
     setlocale(LC_ALL, "Russian");
-    
+
+
+    int a = 3;
+    int b = 6;
+    int* q = &a;
+    int* w = &b;
+    ReadPointer(q);
+    ReadPointer(w);
+    SetPointer(&q,w);
+    ReadPointer(q);
+    ReadPointer(w);
     /* 1
     int a = 3;
     int b = 6;
@@ -54,7 +64,6 @@ int main(){
     ReadPointer(c);
     ReadPointer(t);
     */
-
 
     /* 2
     char** english = new char* [10];
