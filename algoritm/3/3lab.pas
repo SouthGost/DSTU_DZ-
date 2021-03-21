@@ -35,19 +35,11 @@ begin
       if(lastSize<>(stseg[i+2]*32+stseg[i+3])-lastStart)then
       begin
         if(mySize<=(stseg[i+2]*32+stseg[i+3])-lastStart)then
-        begin
-          //
-          
+        begin          
           tempC:=stseg[i];
           tempSize:=stseg[i+1];
           tempStart1:=stseg[i+2];
           tempStart2:=stseg[i+3];
-          {
-          stseg[i+4]:=stseg[i];
-          stseg[i+5]:=stseg[i+1];
-          stseg[i+6]:=stseg[i+2];
-          stseg[i+7]:=stseg[i+3];
-          }
           stseg[i]:=Ord(myC);
           stseg[i+1]:=mySize;
           stseg[i+2]:=(lastStart+lastSize)div 32;
@@ -69,8 +61,6 @@ begin
           tempStart1:=tempStart12;
           tempStart2:=tempStart22;
             i+=4;
-            
-            //
           end; 
           stseg[i]:=tempC;
           stseg[i+1]:=tempSize;
