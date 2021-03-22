@@ -253,16 +253,18 @@ public class Lab3 {
         "Мои номера 220-30-40 и 8904-378-16-61 не считая служебных"
         все содержащиеся в ней номера телефонов
          */
-        String mobilPhone = "([+]7|8)([(]|\s|-?)\\d{3}([)]|\s|-?)(\s|-?)\\d{3}(\s|-?)\\d{2}(\s|-?)\\d{2}";
-        String homePhone = "(2|3)(\s|-?)\\d{2}(\s|-?)\\d{2}(\s|-?)\\d{2}";
-        Pattern mobilPhon = Pattern.compile(mobilPhone+"|"+homePhone);
-        String text = "Мои номера 8(904)-378-16-61 и +7(904)3781661. Мои номера 220-30-40 и 8904-378-16-61 не считая служебных.";
-        Matcher m = mobilPhon.matcher(text);
-        while (m.find()) {
-            int begin = m.start();
-            int end = m.end();
-            System.out.println(text.substring(begin, end));
-        }
+
+//        String mobilPhone = "([+]7|8)([(]|\s|-?)\\d{3}([)]|\s|-?)(\s|-?)\\d{3}(\s|-?)\\d{2}(\s|-?)\\d{2}";
+//        String homePhone = "(2|3)(\s|-?)\\d{2}(\s|-?)\\d{2}(\s|-?)\\d{2}";
+//        Pattern mobilPhon = Pattern.compile(mobilPhone+"|"+homePhone);
+//        String text = "Мои номера 8(904)-378-16-61 и +7(904)3781661. Мои номера 220-30-40 и 8904-378-16-61 не считая служебных.";
+//        Matcher m = mobilPhon.matcher(text);
+//        while (m.find()) {
+//            int begin = m.start();
+//            int end = m.end();
+//            System.out.println(text.substring(begin, end));
+//        }
+
     }
 
 
@@ -270,7 +272,7 @@ public class Lab3 {
     public static void integralLeft(double[] x,double[] y){
         double[] y2 = new double[101];
         for (int i = 0;i<100;i++){
-            y2[i]= y[i]*(x[i]-x[i+1]);
+            y2[i]= y[i]*(x[i+1]-x[i]);
             System.out.printf("%5.3f\t%7.3f\n",x[i],y2[i]);
         }
 
