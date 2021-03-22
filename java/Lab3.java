@@ -157,6 +157,7 @@ public class Lab3 {
 //        }
 //        System.out.println("-------------------------");
 //        integralLeft(x,y);
+//        System.out.println("-------------------------");
 //        for (int i = 0;i<101;i++){
 //            System.out.printf("%5.3f\t%7.3f\n",x[i],integral(x[i]));
 //        }
