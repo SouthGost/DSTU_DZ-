@@ -1,30 +1,34 @@
 object Lab3 {
   //1
 
-  // файлы
+  class powr(val osnovanie:Double) extends In2.power with In3.power with In4.power with In5.power{}
+
 
   //2
 
-  trait forQueue[T]{
-    def add(x:T):Unit
-    def del:Unit
-    def show:Unit
+  trait mylistTH{
+    var list: List[Int] = Nil
+    var tail:Any = Nil
+    var head:Any = Nil
   }
 
-  class QueueI extends forQueue[Int]{
-    private var list: List[Int] = Nil
-    private var tail:Any = Nil
-    private var head:Any = Nil
 
-    override def add(x:Int):Unit = {
+
+  trait forAddInQueue extends mylistTH{
+
+    def add(x:Int):Unit = {
       if(list.isEmpty){
         head=x
       }
       list = list:+x
       tail=x
     }
+  }
 
-    override def del:Unit = {
+  trait forDelInQueue extends mylistTH{
+
+
+    def del:Unit= {
       if(list.nonEmpty){
         list=list.tail
         if(list.nonEmpty){
@@ -35,8 +39,11 @@ object Lab3 {
         }
       }
     }
+  }
 
-    override def show:Unit = {
+  trait forShowInQueue extends mylistTH{
+
+    def show:Unit = {
       for(x<-list){
         println(x)
       }
@@ -44,24 +51,26 @@ object Lab3 {
     }
   }
 
+  class Queue extends forAddInQueue with forDelInQueue with forShowInQueue{}
+
   //3
 
-  trait forList[T]{
-    def sum:T
-    def mul:T
-    def average:Double
+  trait mylist{
+    var list: List[Int]
   }
 
-  class MyListi(var list:List[Int]) extends forList[Int]{
-    override def sum = {
+  trait forListSum extends mylist{
+    def sum = {
       var summ = 0
       for (x<-list){
         summ+=x
       }
       summ
     }
+  }
 
-    override def mul: Int = {
+  trait forListMul extends mylist{
+    def mul = {
       var mult = 1
       for (x<-list){
         mult*=x
@@ -69,10 +78,16 @@ object Lab3 {
       mult
     }
 
-    override def average: Double = {
+  }
+
+  trait forListAverage extends forListSum{
+    def average:Double = {
       sum/list.length
     }
   }
+
+  class MyListi(override var list: List[Int]) extends forListMul with forListAverage{}
+
 
   def main(args: Array[String]): Unit = {
 
@@ -82,29 +97,26 @@ object Lab3 {
     трейт. Подмешать трейт в объект.
     */
 
-//    val p2 = new In2.powI(2)
-//    println(p2.rezult)
-//    val p3 = new In3.powI(2)
-//    println(p3.rezult)
-//    val p4 = new In4.powI(2)
-//    println(p4.rezult)
-//    val p5 = new In5.powI(2)
-//    println(p5.rezult)
+//    val p = new powr(3)
+//    println(p.vozvedenie2)
+//    println(p.vozvedenie3)
+//    println(p.vozvedenie4)
+//    println(p.vozvedenie5)
 
     /*2
     Реализовать класс очередь. Методы очереди (добавление,
     удаление, вывод) описать отдельными трейтами.
     */
 
-    val q = new QueueI
-    q.add(5)
-    q.show
-    q.add(10)
-    q.del
-    q.add(1)
-    q.add(7)
-    q.add(4)
-    q.show
+//    val q = new Queue
+//    q.add(5)
+//    q.show
+//    q.add(10)
+//    q.del
+//    q.add(1)
+//    q.add(7)
+//    q.add(4)
+//    q.show
 
     /*3
     Реализовать класс список. С помощью трейтов реализовать

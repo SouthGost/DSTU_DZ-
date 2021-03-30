@@ -1,31 +1,12 @@
 object In2 {
-    trait power[T] {
-      def vozvedenie: T
-      val stepen = 2
-      val rezult: T
-    }
+  trait power extends osnovanie.osnovanie {
 
-    class powI(val osnovanie: Int) extends power[Int] {
-      override def vozvedenie: Int = {
-        var rez = 1
-        for (i <- 1 to stepen) {
-          rez = rez * osnovanie
-        }
-        rez
+    def vozvedenie2: Double = {
+      var rez:Double = 1.0
+      for (i <- 1 to 2) {
+        rez = rez * osnovanie
       }
-
-      override val rezult = vozvedenie
+      rez
     }
-
-    class powD(val osnovanie: Int) extends power[Double] {
-      override def vozvedenie: Double = {
-        var rez = 1
-        for (i <- 1 to stepen) {
-          rez = rez * osnovanie
-        }
-        rez
-      }
-
-      override val rezult = vozvedenie
-    }
+  }
 }
