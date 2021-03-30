@@ -12,10 +12,10 @@ public class Drow {
         public void paint(Graphics g) {
             g.setColor(Color.BLACK);
             g.drawRect(5,5+enter,100,100);
-            g.drawString("ABOBA",10,16+enter);
+            g.drawString("HAY",10,16+enter);
             enter+=110;
             g.drawRect(5,5+enter,100,100);
-            g.drawString("ABOBA",10,16+enter);
+            g.drawString("YOW",10,16+enter);
             enter=0;
         }
     }
