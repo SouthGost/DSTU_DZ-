@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ua">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table{
+            margin-bottom: 10px;
+        }
+
+        td {
+            border: 1px solid black;
+            padding: 5px;
+        }
+
+        /* td:last-child {
+            border: none;
+        } */
+    </style>
+</head>
+
+<body>
+
+    <div>
+        <button onclick="chooslength = 20">20</button>
+        <button onclick="chooslength = 500">500</button>
+        <button onclick="chooslength = 1000">1000</button>
+        <button onclick="chooslength = 3000">3000</button>
+        <button onclick="chooslength = 5000">5000</button>
+        <button onclick="chooslength = 10000">10000</button>
+    </div>
+
+    <table class="table">
+        <tr>
+            <td>0%</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Сортировка с помощью прямого включения</td>
+
+            <td><button onclick="vkluch(createArray(chooslength))">Запуск</button></td>
+        </tr>
+        <tr>
+            <td>Сортировка с помощью прямого выбора</td>
+
+            <td><button onclick="vibor(createArray(chooslength))">Запуск</button></td>
+        </tr>
+        <tr>
+            <td>Сортировка с помощью прямого обмена</td>
+
+            <td><button onclick="obmen(createArray(chooslength))">Запуск</button></td>
+        </tr>
+        <tr>
+            <td>Метод быстрой сортировки (метод Хоара)</td>
+
+            <td><button onclick="fast(createArray(chooslength))">Запуск</button></td>
+        </tr>
+    </table>
+
+    <table class="table">
+        <tr>
+            <td>25%</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Сортировка с помощью прямого включения</td>
+            <td><button onclick="vkluch(createArraySort(chooslength,0.25))">Запуск</button></td>
+        </tr>
+        <tr>
+            <td>Сортировка с помощью прямого выбора</td>
+            <td><button onclick="vibor(createArraySort(chooslength,0.25))">Запуск</button></td>
+        </tr>
+        <tr>
+            <td>Сортировка с помощью прямого обмена</td>
+            <td><button onclick="obmen(createArraySort(chooslength,0.25))">Запуск</button></td>
+        </tr>
+        <tr>
+            <td>Метод быстрой сортировки (метод Хоара)</td>
+            <td><button onclick="fast(createArraySort(chooslength,0.25))">Запуск</button></td>
+    </table>
+
+    <table class="table">
+        <tr>
+            <td>50%</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Сортировка с помощью прямого включения</td>
+            <td><button onclick="vkluch(createArraySort(chooslength,0.5))">Запуск</button></td>
+        </tr>
+        <tr>
+            <td>Сортировка с помощью прямого выбора</td>
+            <td><button onclick="vibor(createArraySort(chooslength,0.5))">Запуск</button></td>
+        </tr>
+        <tr>
+            <td>Сортировка с помощью прямого обмена</td>
+            <td><button onclick="obmen(createArraySort(chooslength,0.5))">Запуск</button></td>
+        </tr>
+        <tr>
+            <td>Метод быстрой сортировки (метод Хоара)</td>
+            <td><button onclick="fast(createArraySort(chooslength,0.5))">Запуск</button></td>
+        </tr>
+    </table>
+
+    <table class="table">
+        <tr>
+            <td>75%</td>
+            <!-- <td>Сравнения</td>
+            <td>Обмены</td>
+            <td>Время</td> -->
+            <td></td>
+        </tr>
+        <tr>
+            <td>Сортировка с помощью прямого включения</td>
+            <!-- <td></td>
+            <td></td>
+            <td></td> -->
+            <td><button onclick="vkluch(createArraySort(chooslength,0.75))">Запуск</button></td>
+        </tr>
+        <tr>
+            <td>Сортировка с помощью прямого выбора</td>
+            <!-- <td></td>
+            <td></td>
+            <td></td> -->
+            <td><button onclick="vibor(createArraySort(chooslength,0.75))">Запуск</button></td>
+        </tr>
+        <tr>
+            <td>Сортировка с помощью прямого обмена</td>
+            <!-- <td></td>
+            <td></td>
+            <td></td> -->
+            <td><button onclick="obmen(createArraySort(chooslength,0.75))">Запуск</button></td>
+        </tr>
+        <tr>
+            <td>Метод быстрой сортировки (метод Хоара)</td>
+            <!-- <td></td>
+            <td></td>
+            <td></td> -->
+            <td><button onclick="fast(createArraySort(chooslength,0.75))">Запуск</button></td>
+        </tr>
+    </table>
+
+    <script src="script.js" defer></script>
+</body>
+
+</html>
