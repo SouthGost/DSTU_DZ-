@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ua">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #find_value {
+            margin-top: 5px;
+        }
+
+        .create_array {
+            margin-top: 5px;
+        }
+
+        .input_with_text {
+            display: flex;
+            align-items: center;
+        }
+
+        .input_with_text input{
+            margin-left: 5px;
+        }
+
+        .find_container {
+            max-width: 300px;
+        }
+
+        .find_start_line {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 2px;
+        }
+
+        .find_start_line p {
+            margin: 5px;
+        }
+
+        .find_start_line button {
+            margin: 5px;
+            padding: 2px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div>
+        <button onclick="chooslength = 100">100</button>
+        <button onclick="chooslength = 500">500</button>
+        <button onclick="chooslength = 1000">1000</button>
+        <button onclick="chooslength = 3000">3000</button>
+        <button onclick="chooslength = 10000">10000</button>
+    </div>
+
+    <div class="create_array">
+        <button onclick="array = createArray(chooslength)">Создать массив</button>
+        <button onclick="array = createArraySort(chooslength)">Создать отсортированный массив</button>
+        <div class="input_with_text">
+            <p>выводить массив</p>
+            <input type="checkbox" id="array_show" onclick="arrayShow = !arrayShow" checked>
+        </div>
+    </div>
+
+    <div class="input_with_text">
+        <p>какое число найти</p>
+        <input type="number" id="find_value" value=0>
+    </div>
+
+    <div class="find_container">
+        <div class="find_start_line">
+            <p>Линейный поиск</p>
+            <button onclick="myfind(`line`,array)">Найти</button>
+        </div>
+
+        <div class="find_start_line">
+            <p>Линейный поиск с барьером</p>
+            <button onclick="myfind(`line-border`,array)">Найти</button>
+        </div>
+
+        <div class="find_start_line">
+            <p>Бинарный поиск</p>
+            <button onclick="myfind(`binar`,array)">Найти</button>
+        </div>
+    </div>
+
+    <script src="script.js" defer></script>
+</body>
+
+</html>
