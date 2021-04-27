@@ -59,7 +59,7 @@ public class Competition {
 
 
     public static void main(String[] args) throws Exception {
-        Competition run = new Competition(128);
+        Competition run = new Competition(16);
         run.startCompetition();
     }
 

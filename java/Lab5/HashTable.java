@@ -1,20 +1,35 @@
 package Lab5;
 
-public class HashTable<T_> {
-    public T_[] arrayList;
-    public HashFunction HF;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
-    public HashTable(HashFunction hf){
+public abstract class HashTable<T extends Person,K> {
+    public List<T>[] arrayList;
+    public HashFunction<K> HF;
+
+    public HashTable(HashFunction<K> hf){
         HF = hf;
+        arrayList = new List[HF.size];
+        for(int i = 0; i< arrayList.length;++i){
+            arrayList[i] = new ArrayList<>();
+        }
     }
 
-}
-
-abstract class HashFunction<T>{
-    public int size;
-    public HashFunction(int size){
-        this.size = size;
+    public boolean contains(K value){
+        if (value.toString().isEmpty()){
+            return false;
+        }
+        return true;
     }
 
-    abstract int hash(T s);
+    @Override
+    public String toString() {
+        return "HashTable{" +
+                "arrayList=" + Arrays.toString(arrayList) +
+                '}';
+    }
+
+    abstract void addAtHT(T value);
+
 }

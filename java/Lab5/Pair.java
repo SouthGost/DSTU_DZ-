@@ -33,17 +33,14 @@ public class Pair<T1,T2> {
     }
 
     public static void main(String[] args) {
-        Pair hu = new Pair("ABOBA",54);
+        Pair hu = new Pair("Kiril",54);
         Pair babushka=make_pair(53.5,"Вова");
         System.out.println(babushka);
         System.out.println(hu);
     }
 
-    public static Pair make_pair(double first, int second){
+    public static Pair make_pair(Object first, Object second){
         return new Pair<>(first,second);
     }
 
-    public static Pair make_pair(double first, String second){
-        return new Pair<>(first,second);
-    }
 }

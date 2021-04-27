@@ -1,6 +1,6 @@
 package Lab5;
 
-public class GPairBag<T1,T2> extends PairBag{
+public class GPairBag<T1,T2> extends Bag<Pair<T1,T2>>{
     public GPairBag(int size) {
         super(size);
     }
