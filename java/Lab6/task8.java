@@ -61,7 +61,7 @@ public class task8 extends JFrame {
 
     public static void main(String[] args) {
         String[] stroks = {"Вижу тебя в чате по кд прессуют. Могу тебя дефать от хейтеров (пасты, троллинг, спам — мой конек). Цена простая — одна сабка. Или можешь дальше терпеть, дело твое.",
-        "Заходит улитка в бар и говорит: -Виски со льдом -Извините, но мы не обслуживаем улиток и бармен выкинул ее за дверь. Через неделю улитка снова приходит в бар и спрашивает: -На*уя ты это сделал?",
+        "Заходит улитка в бар и говорит: -Виски со льдом -Извините, но мы не обслуживаем улиток и бармен выкинул ее за дверь. Через неделю улитка снова приходит в бар и спрашивает: -На*** ты это сделал?",
         "Happy star wars today everyone. Today is also my birthday and because it is my birthday i get introduce you to my gilfriend who is amaizing. -Hi gise. i am Britni."};
         new task8(stroks).setVisible(true);
     }
