@@ -1,0 +1,260 @@
+﻿#include <iostream>
+using namespace std;
+
+
+struct list2 {
+    int data[10];
+    int arrow[10];
+    int start = -1;
+    int stack = 0;
+
+    list2(){
+        for (int i = 0; i < 10; i++) {
+            data[i] = NULL;
+        }
+        for (int i = 0; i < 9; i++) {
+            arrow[i] = i + 1;
+        }
+        arrow[9] = -1;
+    }
+};
+
+void addStartlist2(list2* list,int x) {
+    list->data[list->stack] = x;
+    int t = list->arrow[list->stack];
+    list->arrow[list->stack] = list->start;
+    list->start = list->stack;
+    list->stack = t;
+}
+
+int getPoslist2(list2* list, int p) {
+    int t = list->start;
+    int p_ = 0;
+    while (t != -1 && p_ != p) {
+        t = list->arrow[t];
+        p_++;
+    }
+    return t;
+}
+
+void delInlist2(list2* list, int p) {
+    if (p == 0) {
+        int t = list->arrow[list->start];
+        list->arrow[list->start] = list->stack;
+        list->stack = list->start;
+        list->start = t;
+    } else {
+        p = getPoslist2(list, p-1);
+        int t = list->arrow[p];
+        list->arrow[p] = list->arrow[t];
+        list->arrow[t] = list->stack;
+        list->stack = t;
+    }
+}
+
+void addafterlist2(list2* list, int x, int p) {
+
+    p = getPoslist2(list, p);
+    if (p != -1) {
+        list->data[list->stack] = x;
+        int t = list->arrow[list->stack];
+        list->arrow[list->stack] = list->arrow[p];
+        list->arrow[p] = list->stack;
+        list->stack = t;
+    }
+    else {
+        cout << "error pos\n";
+    }
+}
+
+void showlist2(list2* list) {
+    if (list->start != -1) {
+        cout << "-----------" << endl;
+        int t = list->start;
+        while (t != -1) {
+            cout << list->data[t] << endl;
+            t = list->arrow[t];
+        }
+        cout << "-----------" << endl;
+    }
+}
+
+
+//----2----
+
+struct elem {
+    int data;
+    elem* next = NULL;
+};
+
+struct List {
+    elem* begin = NULL;
+    elem* end = NULL;
+};
+
+bool isEmpty(List* list) {
+    if (list->begin == NULL) {
+        return true;
+    }
+    return false;
+}
+
+void addEndList(List* list, int val) {
+    elem* el = new elem();
+    el->data = val;
+    if (list->end == NULL) {
+        list->begin = el;
+    }
+    else {
+        list->end->next = el;
+    }
+    list->end = el;
+}
+
+void addInList(List* list, int val, int p_) {
+    if (p_ == 0) {
+        elem* el = new elem();
+        el->data = val;
+        if (!isEmpty(list)) {
+            el->next = list->begin;
+            list->begin = el;
+        }
+        else {
+            list->begin = el;
+            list->end = el;
+        }
+    }
+    else {
+        int p = 1;
+        elem* h = list->begin;
+        while (p != p_ && h != NULL) {
+            p++;
+            h = h->next;
+        }
+        if (h == NULL || h->next == NULL) {
+            addEndList(list, val);
+        }
+        else {
+            elem* el = new elem();
+            el->data = val;
+            el->next = h->next;
+            h->next = el;
+        }
+    }
+}
+
+void deletLast(List* list) {  //Переделать
+    if (!isEmpty(list)) {
+        elem* h = list->begin;
+        if (h == list->end) {
+            list->end = NULL;
+            list->begin = NULL;
+            delete h;
+        }
+        else {
+            while (h->next != list->end) {
+                h = h->next;
+            }
+            list->end = h;
+            delete h->next;
+        }
+    }
+}
+
+void deleteFromList(List* list, int p) {
+    if (!isEmpty(list) && p > 0) {
+        elem* h = list->begin;
+        if (p == 1) {
+            if (h == list->end) {
+                list->end = NULL;
+                list->begin = NULL;
+            }
+            else {
+                list->begin = h->next;
+                h->next = NULL;
+            }
+            delete h;
+        }
+        else {
+            int p_ = 2;
+            while (p != p_ && h->next != NULL) {
+                h = h->next;
+                p_ += 1;
+            }
+            if (h->next != NULL) {
+                if (h->next == list->end) {
+                    list->end = h;
+                    delete h->next;
+                    h->next = NULL;
+                }
+                else {
+                    elem* t = h->next;
+                    h->next = t->next;
+                    t->next = NULL;
+                    delete t;
+                }
+            }
+
+        }
+    }
+}
+
+void showList(List* list) {
+    if (!isEmpty(list)) {
+        cout << "-------------------\n";
+        elem* h = list->begin;
+        while (h != NULL) {
+            cout << h->data << endl;
+            h = h->next;
+        }
+        cout << "-------------------\n";
+    }
+
+}
+
+int main() {
+    /*  1  
+    list2* qwe = new list2();
+    addStartlist2(qwe, 1);
+    addStartlist2(qwe, 2);
+    addafterlist2(qwe, 3, 1);
+    addStartlist2(qwe, 4);
+    showlist2(qwe);
+    delInlist2(qwe, 2);
+    delInlist2(qwe, 0);
+    delInlist2(qwe, 1);
+    delInlist2(qwe, 0);
+    showlist2(qwe);
+    addStartlist2(qwe, 5);
+    addafterlist2(qwe, 6, 0);
+    addafterlist2(qwe, 7, 0);
+    showlist2(qwe);
+    // */
+
+    
+    /* 2 part 
+    
+    List* ewq = new List();
+    addEndList(ewq, 4);
+    addEndList(ewq, 3);
+    addEndList(ewq, 2);
+    addEndList(ewq, 1);
+    addInList(ewq, 22, 3);
+    addInList(ewq, 15, 0);
+    addInList(ewq, 7, 3);
+    addInList(ewq, 11, 2);
+    addInList(ewq, 9, 3);
+    showList(ewq);
+    deleteFromList(ewq, 9);
+    deleteFromList(ewq, 5);
+    deleteFromList(ewq, 1);
+    showList(ewq);
+    while (!isEmpty(ewq)) {
+        deletLast(ewq);
+
+    }
+    addInList(ewq, 22, 3);
+    deleteFromList(ewq, 1);
+    // */
+    return 0;
+}
