@@ -2,6 +2,8 @@ package Lab6;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.Point2D;
+import java.awt.geom.QuadCurve2D;
 
 public class Curve {
     protected double[] xs;
@@ -35,10 +37,14 @@ public class Curve {
                 for (int y = y0 - (y0/scale) * scale; y <= y0 + (y0/scale) * scale; y += scale) {
                     g.drawLine(x0 + 2, y, x0 - 2, y);
                 }
-                for(int i=0; i< xs.length-1;i++){
+
+                QuadCurve2D q = new QuadCurve2D.Double();
+                for(int i=0; i< xs.length-2;i++){
 //                    System.out.println( i + ") " +(int)(x0 + xs[i]* scale) + " " + (int)(y0 -ys[i] * scale));
                     if( (x0 + xs[i]* scale >= border[0] && x0 +xs[i]* scale <= border[2] && y0 -ys[i]* scale >= border[1] && y0 -ys[i]* scale <= border[3]) && (x0 + xs[i+1]* scale >= border[0] && x0 +xs[i+1]* scale <= border[2] && y0 -ys[i+1]* scale >= border[1] && y0 -ys[i+1]* scale <= border[3]) ) {
-                        g.drawLine((int)(x0 + xs[i] * scale), (int)(y0 - ys[i] * scale), (int)(x0 + xs[i + 1] * scale), (int)(y0 - ys[i + 1] * scale));
+                        q.setCurve(new Point2D.Double((int)(x0 + xs[i] * scale), (int)(y0 - ys[i] * scale)), new Point2D.Double((int)(x0 + xs[i + 1] * scale), (int)(y0 - ys[i + 1] * scale)), new Point2D.Double((int)(x0 + xs[i + 2] * scale), (int)(y0 - ys[i + 2] * scale)));
+                        g2.draw (q);
+//                        g.drawLine((int)(x0 + xs[i] * scale), (int)(y0 - ys[i] * scale), (int)(x0 + xs[i + 1] * scale), (int)(y0 - ys[i + 1] * scale));
                     }
                 }
 //                System.out.println( xs.length-1 + ") " +(int)(x0 + xs[xs.length-1]* scale) + " " + (int)(y0 -ys[xs.length-1] * scale) + "\n");
