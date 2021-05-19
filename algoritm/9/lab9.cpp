@@ -1,4 +1,4 @@
-﻿#include <iostream>
+#include <iostream>
 #include <iomanip>      // std::setw
 using namespace std;
 
@@ -72,10 +72,7 @@ int cutMaxEl(elem* el) {
     if (h->el2->el1 == NULL) {
         x = h->el2->data;
         if (h->el2->el2 != NULL) {
-            elem* t = h->el2->el2;
-            h->el2->data = t->data;
-            h->el2->el2 = NULL;
-            delete t;
+            h->el2 = h->el2->el2;
         } else {
             elem* t = h->el2;
             h->el2 = NULL;
@@ -88,10 +85,7 @@ int cutMaxEl(elem* el) {
         }
         x = h->el1->data;
         if (h->el1->el2 != NULL) {
-            elem* t = h->el1->el2;
-            h->el1->data = t->data;
-            h->el1->el2 = NULL;
-            delete t;
+            h->el1 = h->el1->el2;
         }
         else {
             elem* t = h->el1;
@@ -108,10 +102,7 @@ int cutMinEl(elem* el) {
     if (h->el1->el2 == NULL) {
         x = h->el1->data;
         if (h->el1->el1 != NULL) {
-            elem* t = h->el1->el1;
-            h->el1->data = t->data;
-            h->el1->el1 = NULL;
-            delete t;
+            h->el1 = h->el1->el1;
         }
         else {
             elem* t = h->el1;
@@ -126,10 +117,7 @@ int cutMinEl(elem* el) {
         }
         x = h->el2->data;
         if (h->el2->el1 != NULL) {
-            elem* t = h->el2->el1;
-            h->el2->data = t->data;
-            h->el2->el1 = NULL;
-            delete t;
+            h->el2 = h->el2->el1;
         }
         else {
             elem* t = h->el2;
@@ -224,7 +212,7 @@ void printT(const Tree* node)
 
 int main() {
     Tree* qwe = new Tree();
-/* */   addToTree(qwe, 12);
+/*   addToTree(qwe, 12);
     addToTree(qwe,9);
     addToTree(qwe, 18); 
     addToTree(qwe, 6);
@@ -244,7 +232,7 @@ int main() {
     //ShowTree(qwe);
 
 // */ 
-/* 
+/* */
    addToTree(qwe, 10);
     addToTree(qwe, 15);
     addToTree(qwe, 16);
@@ -257,8 +245,9 @@ int main() {
     addToTree(qwe, 13);
     addToTree(qwe, 12);
     addToTree(qwe, 11);
-    printT(qwe);
-    //ShowTree(qwe);
+    //printT(qwe);
+    deleteFromTree(qwe, 7);
+    ShowTree(qwe);
     
  //   */
     return 0;
