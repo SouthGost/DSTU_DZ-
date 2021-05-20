@@ -210,6 +210,26 @@ void printT(const Tree* node)
     printET("", node->start, false);
 }
 
+bool findElem(elem* el, int x) {
+    bool isElem = false;
+    if (el->data == x) {
+        isElem = true;
+    } else if(el->data < x) {
+        if (el->el1 != NULL) {
+            isElem = findElem(el->el1, x);
+        }
+    } else {
+        if (el->el2 != NULL) {
+            isElem = findElem(el->el2, x);
+        }
+    }
+    return isElem;
+}
+
+bool findInTree(Tree* tree, int x) {
+    return findElem(tree->start, x);
+}
+
 int main() {
     Tree* qwe = new Tree();
 /*   addToTree(qwe, 12);
@@ -248,6 +268,16 @@ int main() {
     //printT(qwe);
     deleteFromTree(qwe, 7);
     ShowTree(qwe);
+    cout << "---------------------------\n";
+    cout << findInTree(qwe, 10) << endl;
+    cout << findInTree(qwe, 7) << endl;
+    cout << findInTree(qwe, 11) << endl;
+    cout << findInTree(qwe, 10) << endl;
+    cout << findInTree(qwe, 9) << endl;
+    cout << findInTree(qwe, 16) << endl;
+    cout << findInTree(qwe, 4) << endl;
+    cout << findInTree(qwe, 50) << endl;
+    cout << findInTree(qwe, 1) << endl;
     
  //   */
     return 0;
