@@ -1,7 +1,5 @@
 package Lab7;
 
-import Lab6.Curve;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
