@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class task3 extends JFrame {
     private int pogx = 8, pogy = 30;
-    private ArrayList<circl> circls;
+    private ArrayList<circl> circls = new ArrayList<>();
     private Timer t;
     private JButton addButton;
     private JButton stopButton;
@@ -17,7 +17,6 @@ public class task3 extends JFrame {
     public task3() {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(400,400); //    138
-        circls = new ArrayList<>();
         JPanel panel1 = new JPanel(){
             @Override
             public void paint(Graphics g){

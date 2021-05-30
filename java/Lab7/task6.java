@@ -2,17 +2,30 @@ package Lab7;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class task6 extends JFrame {
     private Kubic kub = new Kubic();
 
     task6(){
         super();
+        JPanel panel1 = new JPanel();
+        panel1.setLayout(new FlowLayout());
+        kub.setPreferredSize(new Dimension(50,50));
+        panel1.add(kub);
 
-        add(kub);
+        add(panel1);
+
+        JButton throwButton = new JButton("Trow");
+        throwButton.addActionListener(e -> {
+            System.out.println(kub.kubThrow());
+            kub.repaint();
+        });
+        add(throwButton,BorderLayout.SOUTH);
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(500,500);
+        setSize(300,200);
         setVisible(true);
     }
 
@@ -21,19 +34,4 @@ public class task6 extends JFrame {
     }
 }
 
-class Kubic extends JPanel{
-    private Color bgclr = Color.WHITE;
-    private Color circlClr = Color.BLACK;
-    private int circlSize = 1;
-    private int val = 1;
 
-    Kubic(){
-        super();
-    }
-
-    @Override
-    public void paint(Graphics g){
-        
-    }
-
-}

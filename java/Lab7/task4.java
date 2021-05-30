@@ -5,15 +5,15 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class task4 extends JFrame {
-    private int pogx = 8, pogy = 30;
-    private Curve[] curve;
-    private JComboBox<String> choosFunc;
+    //private int pogx = 8, pogy = 30;
+    private final Curve[] curve;
+    private final JComboBox<String> choosFunc;
     private Color clr = Color.BLACK;
     private int start=-30, end=30;
 
-    public task4(Curve[] curve,String[] strFunc){
+    public task4(Curve[] crv,String[] strFunc){
         super("Grafics");
-        this.curve = curve;
+        curve = crv;
         JPanel panel1 = new JPanel();
         panel1.setLayout(new FlowLayout());
         panel1.setPreferredSize(new Dimension(0, 70));
