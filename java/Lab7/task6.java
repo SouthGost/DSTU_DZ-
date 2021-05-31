@@ -33,5 +33,3 @@ public class task6 extends JFrame {
         new task6();
     }
 }
-
-

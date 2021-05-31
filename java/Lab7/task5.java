@@ -3,17 +3,17 @@ package Lab7;
 import javax.swing.*;
 import java.awt.*;
 
-public class task5 extends JFrame{
-    private Font updownFont = new Font("dialog",Font.BOLD | Font.ITALIC, 10);
-    private Font centrFont = new Font("dialog",Font.BOLD, 18);
-    private myJLabel upperLabel = new myJLabel("Верх");
-    private myJLabel downLabel = new myJLabel("Низ");
-    private myJLabel centerLabel = new myJLabel("Центр");
+public class task5 extends JPanel{
+    private final myJLabel upperLabel = new myJLabel("Верх");
+    private final myJLabel downLabel = new myJLabel("Низ");
+    private final myJLabel centerLabel = new myJLabel("Центр");
 
-    task5(){
-        upperLabel.setFont(updownFont);
-        downLabel.setFont(updownFont);
-        centerLabel.setFont(centrFont);
+    public task5(){
+        setLayout(new BorderLayout());
+
+        upperLabel.setFont(new Font("dialog",Font.BOLD | Font.ITALIC, 10));
+        downLabel.setFont(new Font("dialog",Font.BOLD | Font.ITALIC, 10));
+        centerLabel.setFont(new Font("dialog",Font.BOLD, 18));
 
         upperLabel.setHorizontalAlignment(SwingConstants.LEFT);
         downLabel.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -22,18 +22,38 @@ public class task5 extends JFrame{
         add(upperLabel,BorderLayout.NORTH);
         add(downLabel,BorderLayout.SOUTH);
         add(centerLabel,BorderLayout.CENTER);
+    }
 
-        upperLabel.setBgclr(Color.green);
-        downLabel.setBgclr(Color.ORANGE);
-        centerLabel.setBgclr(Color.blue);
+    public task5(String textUp, String textCenter, String textDown){
+        this();
+        setUpperText(textUp);
+        centerLabel.setText(textCenter);
+        setDownText(textDown);
+    }
 
-        upperLabel.setForeground(Color.RED);
-        downLabel.setForeground(Color.BLACK);
-        centerLabel.setForeground(Color.pink);
+    public task5(String textUp, String textCenter, String textDown, Color clr){
+        this();
+        setUpperText(textUp);
+        centerLabel.setText(textCenter);
+        setDownText(textDown);
+        setBgcolor(clr);
+    }
 
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(500,500);
-        setVisible(true);
+    public void setBgcolor(Color clr){
+        upperLabel.setBgclr(clr);
+        downLabel.setBgclr(clr);
+        centerLabel.setBgclr(clr);
+    }
+    public void setUpperText(String text){
+        upperLabel.setText(text);
+    }
+
+    public void setDownText(String text){
+        downLabel.setText(text);
+    }
+
+    public String getCentrText(){
+        return centerLabel.getText();
     }
 
     public static void main(String[] args) {
@@ -48,14 +68,12 @@ class myJLabel extends JLabel{
         super(text);
     }
 
-
     myJLabel(){
         super();
     }
 
-
     public void setBgclr(Color clr) {
-        this.bgclr = clr;
+        bgclr = clr;
     }
 
     @Override
