@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<VBox alignment="CENTER" prefHeight="265.0" prefWidth="407.0" spacing="20.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.codinglzw.HelloController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+   <Text fx:id="messageLabel" strokeType="OUTSIDE" strokeWidth="0.0" />
+   <Pane prefHeight="61.0" prefWidth="367.0">
+      <children>
+         <ComboBox fx:id="actionCBox" layoutX="14.0" layoutY="24.0" prefWidth="150.0" />
+         <ComboBox fx:id="codeTypeCBox" layoutX="203.0" layoutY="24.0" prefWidth="150.0" />
+      </children>
+   </Pane>
+    <Button fx:id="chooseButton" onAction="#onChooseButtonClick" text="Выберите файл" />
+   <ProgressBar fx:id="progressBar" prefWidth="200.0" progress="0.0" />
+</VBox>
