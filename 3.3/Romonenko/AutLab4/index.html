@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ua">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automat Lab 4</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="alfavit_div">
+        <h2>Алфавит</h2>
+        <input type="text" id="alfavit_input" value="">
+        <button onclick="setAlfavet()">Задать</button>
+    </div>
+    <div id="states_div">
+        <h2>Состояния</h2>
+        <div id="states_container">
+            <div class="input_row">
+                <input type="text" class="state_input" value="">
+            </div>
+        </div>
+        <button onclick="addState()">+</button>
+        <button onclick="setStates()">Задать</button>
+    </div>
+    <div id="start_end_div">
+        <h2>Начало/Конец</h2>
+    </div>
+    <div id="ways_div">
+        <h2>Пути</h2>
+    </div>
+    <div id="show_table_div">
+        <h2>Таблица</h2>
+    </div>
+    <div id="chain_div">
+        <h2>Проверка цепи</h2>
+    </div>
+
+
+    <script src="scrypt.js" defer></script>
+</body>
+</html>
