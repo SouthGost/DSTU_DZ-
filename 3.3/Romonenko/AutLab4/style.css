@@ -1,6 +1,11 @@
-#states_container{
+.column_container{
     display: flex;
     flex-direction: column;
+}
+
+.row_container{
+    display: flex;
+    flex-direction: row;
 }
 
 .input_row{

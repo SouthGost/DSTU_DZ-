@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ua">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,6 +8,7 @@
     <title>Automat Lab 4</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <div id="alfavit_div">
         <h2>Алфавит</h2>
@@ -15,7 +17,7 @@
     </div>
     <div id="states_div">
         <h2>Состояния</h2>
-        <div id="states_container">
+        <div id="states_container" class="column_container">
             <div class="input_row">
                 <input type="text" class="state_input" value="">
             </div>
@@ -25,6 +27,20 @@
     </div>
     <div id="start_end_div">
         <h2>Начало/Конец</h2>
+        <div id="start_end_container" class="row_container">
+            <div id="start_column">
+                <select>
+                    <option>Пункт 1</option>
+                    <option>Пункт 2</option>
+                </select>
+            </div>
+            <div id="end_column">
+                <select>
+                    <option>Пункт 3</option>
+                    <option>Пункт 4</option>
+                </select>
+            </div>
+        </div>
     </div>
     <div id="ways_div">
         <h2>Пути</h2>
@@ -37,6 +53,7 @@
     </div>
 
 
-    <script src="scrypt.js" defer></script>
+    <script src="script.js" defer></script>
 </body>
+
 </html>
