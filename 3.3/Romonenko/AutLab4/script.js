@@ -5,44 +5,121 @@ const showTableDiv = document.getElementById("show_table_div");
 const chainDiv = document.getElementById("chain_div");
 const divs = [statesDiv, startEndDiv, waysDiv, showTableDiv, chainDiv]
 
-function showDiv(number){
-    let i = 0;
-    for( ; i < number;i++){
-        divs[i].style.visibility = "visible";
+let alfavit = [];
+let states = [];
+let edge = [[],[]];
+
+function pushToSelect(select, data) {
+    for (const data_ of data) {
+        const option = document.createElement("option");
+        option.innerText = data_;
+        select.append(option)
     }
-    for( ; i < divs.length;i++){
+}
+
+function fillSelect(selectName, data){
+    const selectStates = [...document.getElementsByClassName(selectName)];
+    for (const select of selectStates) {
+        select.innerHTML = ""
+        pushToSelect(select, data);
+    }
+}
+
+function ShowWithRuls(number) {
+    if(number >= 0 && number <  divs.length){
+        switch (number) {
+            case 1:
+                fillSelect("select_state", states);
+                // selectStateContainer[0].append(selectionOfState);
+                break;
+            case 2:
+                fillSelect("select_latter", alfavit);
+                break;    
+        }
+        divs[number].style.visibility = "visible";
+    }
+}
+
+function showDivs(number) {
+    let i = 0;
+    for (; i < number; i++) {
+        if(divs[i].style.visibility == "hidden"){
+            ShowWithRuls(i);
+        }
+    }
+    for (; i < divs.length; i++) {
         divs[i].style.visibility = "hidden";
     }
 }
-//showDiv(0);
+showDivs(1);
 
 const alfavitInput = document.getElementById("alfavit_input");
 
-const alfavit = [];
 
-function setAlfavet(){
+function setAlfavet() {
+    alfavit = [];
     for (const char of alfavitInput.value) {
         console.log(alfavit.indexOf(char), char);
-        if(alfavit.indexOf(char) == -1){
+        if (alfavit.indexOf(char) == -1) {
             alfavit.push(char);
         }
     }
     console.log(alfavit);
-    showDiv(1);
+    showDivs(1);
 }
 
-const statesContainer = document.getElementById("states_container");
 
-function addState(){
-    const inputRows = [...document.getElementsByClassName("input_row")];
-    statesContainer.innerHTML+=`<div class="input_row"><input type="text" class="state_input" value=""><button onclick="delState(event)">-</button></div>`;
+function addState() {
+    const statesContainer = document.getElementById("states_container");
+    statesContainer.insertAdjacentHTML("beforeend", `<div class="row_container"><input type="text" class="state_input" value=""><button onclick="delRow(event)">-</button></div>`);
 }
 
-function delState(event){
-    // const inputRows = [...document.getElementsByClassName("input_row")];
-    const inputRow = event.target.parentElement;
+function delRow(event) {
+    // const inputRows = [...document.getElementsByClassName("")];
+    const row = event.target.parentElement;
     // console.log(event.target.parentElement);
-    inputRow.parentNode.removeChild(inputRow);
+    row.parentNode.removeChild(row);
     // inputRows[event.target.name].
+}
+
+
+function setStates() {
+    states = [];
+    const stateInputs = [...document.getElementsByClassName("state_input")];
+    for (const state_ of stateInputs) {
+        if (state_.value != "") {
+            states.push(state_.value);
+        }
+    }
+    console.log(states);
+    showDivs(2);
+}
+
+function addEdge(edgesType) {
+    const edgeSelectStates = document.getElementById(edgesType);
+    const div = document.createElement("div");
+    div.className = "row_container";
+    const select = document.createElement("select")
+    select.className = "select_state select_state_edge";
+    pushToSelect(select, states);
+    div.append(select);
+    div.insertAdjacentHTML("beforeend", `<button onclick="delRow(event)">-</button>`);
+    edgeSelectStates.append(div);
+}
+
+function setEdge(){
+    edge = [[],[]];
+    const selectStateEdges = [...document.getElementsByClassName("select_state_edge")];
+    for (const edgeSelect of selectStateEdges) {
+        if(edgeSelect.parentNode.parentNode.id == "starts_select_state"){
+            edge[0].push(edgeSelect.value)
+        } else if (edgeSelect.parentNode.parentNode.id == "ends_select_state"){
+            edge[1].push(edgeSelect.value)
+        } else {
+            console.log("Не определено, конец или начало");
+        }
+    }
+    console.log(edge);
+    showDivs(3);
 
 }
