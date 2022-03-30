@@ -250,6 +250,16 @@ function createTable(alfavit_ = alfavit, states_ = states, ways_ = ways) {
 }
 createTable()//
 
+function myConcat(arr1, arr2){
+    const arr = [...arr1];
+    for (const elem of arr2) {
+        if(arr.indexOf(elem) == -1){
+            arr.push(elem);
+        }
+    }
+    return arr;
+}
+
 function ISI(state, arr = []){
     if(arr.indexOf(state) == -1){
         arr.push(state);
@@ -263,13 +273,51 @@ function ISI(state, arr = []){
 }
 
 function determ(){
-    const newStates = [];
-    let i = 0;
+    const newAlfavit = [...alfavit];
+    newAlfavit.splice(newAlfavit.indexOf("ε"),1);
 
-    for (const state_ of states) {
-        newStates.push([`S${i}`, ISI(state_)]);
-        i++;
+    const newStates = [];
+    const newStatesName = [];
+
+
+    for (let i = 0; i< states.length; i++) {
+        newStates.push(ISI(states[i]));
+        newStatesName.push(`S${i}`);
     }
     console.log(newStates);
+
+    const dostizimost = [];
+    for (const newLetter of newAlfavit) {
+        const letterArr = [];
+        for (const state_ of states) {
+            let dostizimostFromState = [];
+            for(const state__ of newStates[states.indexOf(state_)]){
+                for (const way_ of ways) {
+                    if(way_[0] == state__ && way_[1] == newLetter){
+                        dostizimostFromState.push(way_[2]);
+                    }
+                }
+            }
+            let tempArr = [];
+            for (const dostState_ of dostizimostFromState) {
+                tempArr = myConcat(tempArr, newStates[states.indexOf(dostState_)]);
+            }
+            dostizimostFromState = myConcat(dostizimostFromState, tempArr);
+            letterArr.push(dostizimostFromState)
+        }
+        dostizimost.push(letterArr);
+    }
+    console.log(dostizimost);
+
+    const newWays = [];
+    for (const newState_ of newStates) {
+        let dostNewState = [];
+        for (const newState__ of newState_) {
+            
+        }
+        for(let i = 0; i < newAlfavit; i++){
+
+        }
+    }
 }
 determ()
