@@ -31,9 +31,9 @@
         <div id="start_end_container" class="row_container">
             <div id="starts_select_state" class="select_state_container">
                 <div class="row_container">
-                    <select class="select_state">
-                        <option>Пункт 1</option>
-                        <option>Пункт 2</option>
+                    <select class="select_state_edge select_state">
+                        <option>Вершина</option>
+                        <option>Вершина</option>
                     </select>
                     <button onclick="addEdge('starts_select_state')">+</button>
                 </div>
@@ -42,8 +42,8 @@
             <div id="ends_select_state" class="select_state_container">
                 <div class="row_container">
                     <select class="select_state_edge select_state">
-                        <option>Пункт 3</option>
-                        <option>Пункт 4</option>
+                        <option>Вершина</option>
+                        <option>Вершина</option>
                     </select>
                     <button onclick="addEdge('ends_select_state')">+</button>
                 </div>
@@ -53,33 +53,41 @@
     </div>
     <div id="ways_div">
         <h2>Пути</h2>
-        <div class="row_container">
-            <select class="select_state">
-                <option>Вершина</option>
-                <option>Вершина</option>
-            </select>
-            <div class="column_container">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 350 100">
-                    <defs>
-                        <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="0" refY="3.5" orient="auto">
-                            <polygon points="0 0, 10 3.5, 0 7" />
-                        </marker>
-                    </defs>
-                    <line x1="0" y1="50" x2="250" y2="50" stroke="#000" stroke-width="8" marker-end="url(#arrowhead)" />
-                </svg>
-                <select class="select_latter">
-                    <option>Символ</option>
-                    <option>Символ</option>
+        <div id="way_container">
+            <div class="row_container way">
+                <select class="select_state">
+                    <option>Вершина</option>
+                    <option>Вершина</option>
                 </select>
+                <div class="column_container">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 350 100">
+                        <defs>
+                            <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="0" refY="3.5" orient="auto">
+                                <polygon points="0 0, 10 3.5, 0 7" />
+                            </marker>
+                        </defs>
+                        <line x1="0" y1="50" x2="250" y2="50" stroke="#000" stroke-width="8"
+                            marker-end="url(#arrowhead)" />
+                    </svg>
+                    <select class="select_latter">
+                        <option>Символ</option>
+                        <option>Символ</option>
+                    </select>
+                </div>
+                <select class="select_state">
+                    <option>Вершина</option>
+                    <option>Вершина</option>
+                </select>
+                <button onclick="addWay()">+</button>
             </div>
-            <select class="select_state">
-                <option>Вершина</option>
-                <option>Вершина</option>
-            </select>
         </div>
+        <button onclick="setWays()">Задать</button>
     </div>
     <div id="show_table_div">
         <h2>Таблица</h2>
+        <div id="table_container">
+
+        </div>
     </div>
     <div id="chain_div">
         <h2>Проверка цепи</h2>
