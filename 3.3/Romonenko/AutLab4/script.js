@@ -33,12 +33,32 @@ const divs = [statesDiv, startEndDiv, waysDiv, showTableDiv, chainDiv]
 //     ['q3', 'ε', 'q2']
 // ];
 
-let alfavit = [];
-let states = [];
-let edges = [[], []];
+let alfavit = ['0', '1'];
+let states = ['q0', 'q1', 'q2', 'q3', 'q4','q5','q6'];
+let edges = [['q0'], ['q3','q4','q5','q6']];
 let ways = [
-
+    ['q0', '0', 'q0'],
+    ['q0', '1', 'q1'],
+    ['q1', '1', 'q1'],
+    ['q1', '0', 'q2'],
+    ['q2', '0', 'q0'],
+    ['q2', '1', 'q3'],
+    ['q3', '0', 'q4'],
+    ['q3', '1', 'q3'],
+    ['q4', '0', 'q5'],
+    ['q4', '1', 'q3'],
+    ['q5', '0', 'q5'],
+    ['q5', '1', 'q3'],
+    ['q6', '0', 'q4'],
+    ['q6', '1', 'q5'],
 ];
+
+// let alfavit = [];
+// let states = [];
+// let edges = [[], []];
+// let ways = [
+
+// ];
 
 function pushToSelect(select, data) {
     for (const data_ of data) {
@@ -83,7 +103,7 @@ function showDivs(number) {
         divs[i].style.visibility = "hidden";
     }
 }
-// showDivs(0);
+
 
 const alfavitInput = document.getElementById("alfavit_input");
 
@@ -91,13 +111,13 @@ const alfavitInput = document.getElementById("alfavit_input");
 function setAlfavet() {
     alfavit = ["ε"];  //эпсилон 
     for (const char of alfavitInput.value) {
-        console.log(alfavit.indexOf(char), char);
+        // console.log(alfavit.indexOf(char), char);
         if (alfavit.indexOf(char) == -1) {
             alfavit.push(char);
         }
     }
     fillSelect("select_latter", alfavit);
-    console.log(alfavit);
+    // console.log(alfavit);
     showDivs(1);
 }
 
@@ -121,7 +141,7 @@ function setStates() {
             states.push(state_.value);
         }
     }
-    console.log(states);
+    // console.log(states);
     fillSelect("select_state", states);
     showDivs(2);
 }
@@ -150,7 +170,7 @@ function setEdge() { /// проблемма добавления концов
             console.log("Не определено, конец или начало");
         }
     }
-    console.log(edges);
+    // console.log(edges);
     showDivs(3);
 
 }
@@ -164,7 +184,7 @@ function addWay() {
     const selectState1 = document.createElement("select");
     selectState1.className = "select_state";
     pushToSelect(selectState1, states);
-    console.log(selectState1.innerHTML);
+    // console.log(selectState1.innerHTML);
     rowContainer.append(selectState1);
 
     const columnContainer = document.createElement("div");
@@ -214,7 +234,7 @@ function setWays() {
         }
 
     }
-    console.log(ways);
+    // console.log(ways);
     document.getElementById("table_container").innerHTML = "";
     createTable();
     determ();
@@ -272,8 +292,7 @@ function createTable(alfavit_ = alfavit, states_ = states, edges_ = edges, ways_
     tableContainer.appendChild(table);
 
 }
-createTable()//
-determ()//
+
 
 function myConcat(arr1, arr2) {
     const arr = [...arr1];
@@ -332,7 +351,7 @@ function determ() {
         newStates.push(ISI(states[i]));
         newStatesName.push(`S${i}`);
     }
-    console.log(newStates);
+    // console.log(newStates);
 
     const newEdges = [];
     const newStartEdge = [];
@@ -354,7 +373,7 @@ function determ() {
         }
     }
     newEdges.push(newEndEdge);
-    console.log(newEdges);
+    // console.log(newEdges);
 
     const dostizimost = [];
     for (const newLetter of newAlfavit) {
@@ -377,7 +396,7 @@ function determ() {
         }
         dostizimost.push(letterArr);
     }
-    console.log(dostizimost);
+    // console.log(dostizimost);
 
     const newWays = [];
     for (let i = 0; i < newStates.length; i++) {
@@ -394,7 +413,7 @@ function determ() {
 
         }
     }
-    console.log(newWays);
+    // console.log(newWays);
 
     createTable(newAlfavit, newStatesName, newEdges, newWays);
 
@@ -444,8 +463,8 @@ function determ() {
         }
     }
 
-    console.log("finalStates", finalStates);
-    console.log("finalWays", finalWays);
+    // console.log("finalStates", finalStates);
+    // console.log("finalWays", finalWays);
 
     createTable(newAlfavit, finalStatesName, finalEdges, finalWays);
     alfavit = newAlfavit;
@@ -453,6 +472,60 @@ function determ() {
     edges = finalEdges;
     ways = finalWays;
     showDivs(5);
+    minim()
+}
+
+function minim(){
+
+    let notGetingState = [];
+    do {
+        notGetingState = [...states];
+        for (const way_ of ways) {
+            const idState = notGetingState.indexOf(way_[2]);
+            if(idState != -1){
+                notGetingState.splice(idState,1);
+            }
+        }
+        console.log("не достежимые",notGetingState);
+        for(let i = 0; i < notGetingState.length; i++) {
+            for (let j = 0; j < ways.length; j++) {
+                if(ways[j][0] == notGetingState[i]){
+                    ways.splice(j,1);
+                }
+            }
+            states.splice(states.indexOf(notGetingState[i]),1);
+        }
+    } while (notGetingState.length != 0);
+
+    let grups = [[],[]];
+    for (const state_ of states) {
+        if(edges[1].indexOf(state_) != -1){
+            grups[1].push(state_);
+        } else {
+            grups[0].push(state_);
+        }
+    }
+    console.log(grups)
+    let newGrups = [...grups];
+
+    do {
+        grups = [... newGrups];
+        for (let i = 0; i < grups.length; i ++) {
+            for (let j = 0; j < grups[i].length; j++) {
+                for (const way_ of ways) {
+                    if(way_[0] === grups[i][j]){
+                        if(grups[i].length != 1 && !grups[i].includes(way_[2])){
+                            newGrups[i].splice(j,1);
+                            newGrups.push([grups[i][j]]);
+                        }
+                    }
+                }
+                
+            }
+        }
+        console.log(newGrups);
+    }while(grups != newGrups);
+
 }
 
 
@@ -495,3 +568,10 @@ function chekChain(){
     chain_p.innerText = myError;
     
 }
+
+
+
+// showDivs(0);
+createTable()//
+// determ()//
+minim()
