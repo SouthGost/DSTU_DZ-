@@ -5,17 +5,39 @@ const showTableDiv = document.getElementById("show_table_div");
 const chainDiv = document.getElementById("chain_div");
 const divs = [statesDiv, startEndDiv, waysDiv, showTableDiv, chainDiv]
 
-let alfavit = ['ε', 'a', 'b'];
-let states = ['q0', 'q1', 'q2', 'q3'];
-let edge = [['q1'], ['q2']];
+// let alfavit = ['ε', 'a', 'b'];
+// let states = ['q0', 'q1', 'q2', 'q3'];
+// let edges = [['q0'], ['q2']];
+// let ways = [
+//     ['q0', 'ε', 'q3'],
+//     ['q0', 'a', 'q1'],
+//     ['q1', 'b', 'q0'],
+//     ['q1', 'a', 'q1'],
+//     ['q1', 'ε', 'q2'],
+//     ['q2', 'b', 'q1'],
+//     ['q3', 'b', 'q2']
+// ];
+
+// let alfavit = ['ε', 'a', 'b'];
+// let states = ['q0', 'q1', 'q2', 'q3'];
+// let edges = [['q0'], ['q3']];
+// let ways = [
+//     ['q0', 'ε', 'q1'],
+//     ['q0', 'b', 'q2'],
+//     ['q1', 'a', 'q3'],
+//     ['q1', 'a', 'q2'],
+//     ['q2', 'b', 'q2'],
+//     ['q2', 'b', 'q3'],
+//     ['q3', 'a', 'q3'],
+//     ['q3', 'a', 'q0'],
+//     ['q3', 'ε', 'q2']
+// ];
+
+let alfavit = [];
+let states = [];
+let edges = [[], []];
 let ways = [
-    ['q0', 'ε', 'q3'], 
-    ['q0', 'a', 'q1'],
-    ['q1', 'b', 'q0'],
-    ['q1', 'a', 'q1'], 
-    ['q1', 'ε', 'q2'],
-    ['q2', 'b', 'q1'],
-    ['q3', 'b', 'q2']
+
 ];
 
 function pushToSelect(select, data) {
@@ -61,7 +83,7 @@ function showDivs(number) {
         divs[i].style.visibility = "hidden";
     }
 }
-// showDivs(1);
+// showDivs(0);
 
 const alfavitInput = document.getElementById("alfavit_input");
 
@@ -86,11 +108,8 @@ function addState() {
 }
 
 function delRow(event) {
-    // const inputRows = [...document.getElementsByClassName("")];
     const row = event.target.parentElement;
-    // console.log(event.target.parentElement);
     row.parentNode.removeChild(row);
-    // inputRows[event.target.name].
 }
 
 
@@ -103,7 +122,7 @@ function setStates() {
         }
     }
     console.log(states);
-    fillSelect("select_state",states);
+    fillSelect("select_state", states);
     showDivs(2);
 }
 
@@ -120,18 +139,18 @@ function addEdge(edgesType) {
 }
 
 function setEdge() { /// проблемма добавления концов
-    edge = [[], []];
+    edges = [[], []];
     const selectStateEdges = [...document.getElementsByClassName("select_state_edge")];
     for (const edgeSelect of selectStateEdges) {
         if (edgeSelect.parentNode.parentNode.id == "starts_select_state") {
-            edge[0].push(edgeSelect.value)
+            edges[0].push(edgeSelect.value)
         } else if (edgeSelect.parentNode.parentNode.id == "ends_select_state") {
-            edge[1].push(edgeSelect.value)
+            edges[1].push(edgeSelect.value)
         } else {
             console.log("Не определено, конец или начало");
         }
     }
-    console.log(edge);
+    console.log(edges);
     showDivs(3);
 
 }
@@ -186,9 +205,6 @@ function setWays() {
         const newWay = [];
         const wayStates = [...wayElement_.getElementsByClassName("select_state")];
         const wayLetter = [...wayElement_.getElementsByClassName("select_latter")];
-        // console.log(wayStates[0].value);    
-        // console.log(wayLetter[0].value);    
-        // console.log(wayStates[1].value);    
         newWay.push(wayStates[0].value);
         newWay.push(wayLetter[0].value);
         newWay.push(wayStates[1].value);
@@ -201,10 +217,11 @@ function setWays() {
     console.log(ways);
     document.getElementById("table_container").innerHTML = "";
     createTable();
+    determ();
     showDivs(4);
 }
 
-function createTable(alfavit_ = alfavit, states_ = states, ways_ = ways) {
+function createTable(alfavit_ = alfavit, states_ = states, edges_ = edges, ways_ = ways) {
     const tableContainer = document.getElementById("table_container");
     const table = document.createElement('table');
     const thead = document.createElement('thead');
@@ -222,10 +239,17 @@ function createTable(alfavit_ = alfavit, states_ = states, ways_ = ways) {
     const state_rows = [];
     for (const state_ of states_) {
         const row_states_by_latter = [];
-        
+
         const tr_state = document.createElement('tr');
         const td_state = document.createElement('td');
         td_state.innerHTML = state_;
+        if (edges_[0].indexOf(state_) != -1 && edges_[1].indexOf(state_) != -1) {
+            td_state.className += "td_edge";
+        } else if (edges_[0].indexOf(state_) != -1) {
+            td_state.className += "td_start";
+        } else if (edges_[1].indexOf(state_) != -1) {
+            td_state.className += "td_end";
+        }
         tr_state.appendChild(td_state);
         for (const letter of alfavit_) {
             const td_states_by_latter = document.createElement('td');
@@ -246,25 +270,49 @@ function createTable(alfavit_ = alfavit, states_ = states, ways_ = ways) {
     table.appendChild(thead);
     table.appendChild(tbody);
     tableContainer.appendChild(table);
-    
+
 }
 createTable()//
+determ()//
 
-function myConcat(arr1, arr2){
+function myConcat(arr1, arr2) {
     const arr = [...arr1];
     for (const elem of arr2) {
-        if(arr.indexOf(elem) == -1){
+        if (arr.indexOf(elem) == -1) {
             arr.push(elem);
         }
     }
     return arr;
 }
 
-function ISI(state, arr = []){
-    if(arr.indexOf(state) == -1){
+function myIsContain(mainArr, secondArr) {
+    for (const secondElem of secondArr) {
+        if (mainArr.indexOf(secondElem) == -1) {
+            return false
+        }
+    }
+    return true;
+}
+
+function myEqual(arr1, arr2) {
+    for (const elem1 of arr1) {
+        if (arr2.indexOf(elem1) == -1) {
+            return false;
+        }
+    }
+    for (const elem2 of arr2) {
+        if (arr1.indexOf(elem2) == -1) {
+            return false;
+        }
+    }
+    return true;
+}
+
+function ISI(state, arr = []) {
+    if (arr.indexOf(state) == -1) {
         arr.push(state);
         for (const way_ of ways) {
-            if(way_[0] == state && way_[1] == "ε"){
+            if (way_[0] == state && way_[1] == "ε") {
                 arr = ISI(way_[2], arr)
             }
         }
@@ -272,28 +320,50 @@ function ISI(state, arr = []){
     return arr;
 }
 
-function determ(){
+function determ() {
     const newAlfavit = [...alfavit];
-    newAlfavit.splice(newAlfavit.indexOf("ε"),1);
+    newAlfavit.splice(newAlfavit.indexOf("ε"), 1);
 
     const newStates = [];
     const newStatesName = [];
 
 
-    for (let i = 0; i< states.length; i++) {
+    for (let i = 0; i < states.length; i++) {
         newStates.push(ISI(states[i]));
         newStatesName.push(`S${i}`);
     }
     console.log(newStates);
+
+    const newEdges = [];
+    const newStartEdge = [];
+    for (const edgeStart of edges[0]) {
+        const newEdgeComponents = [...newStates[states.indexOf(edgeStart)]];
+        for (const component of newEdgeComponents) {
+            if (newStartEdge.indexOf(newStatesName[states.indexOf(component)])) {
+                newStartEdge.push(newStatesName[states.indexOf(component)]);
+            }
+        }
+    }
+    newEdges.push(newStartEdge);
+    const newEndEdge = [];
+    for (const edgeEnd of edges[1]) {
+        for (let i = 0; i < newStates.length; i++) {
+            if (newStates[i].indexOf(edgeEnd) != -1 && newEndEdge.indexOf(newStatesName[i])) {
+                newEndEdge.push(newStatesName[i]);
+            }
+        }
+    }
+    newEdges.push(newEndEdge);
+    console.log(newEdges);
 
     const dostizimost = [];
     for (const newLetter of newAlfavit) {
         const letterArr = [];
         for (const state_ of states) {
             let dostizimostFromState = [];
-            for(const state__ of newStates[states.indexOf(state_)]){
+            for (const state__ of newStates[states.indexOf(state_)]) {
                 for (const way_ of ways) {
-                    if(way_[0] == state__ && way_[1] == newLetter){
+                    if (way_[0] == state__ && way_[1] == newLetter) {
                         dostizimostFromState.push(way_[2]);
                     }
                 }
@@ -310,14 +380,118 @@ function determ(){
     console.log(dostizimost);
 
     const newWays = [];
-    for (const newState_ of newStates) {
-        let dostNewState = [];
-        for (const newState__ of newState_) {
-            
-        }
-        for(let i = 0; i < newAlfavit; i++){
+    for (let i = 0; i < newStates.length; i++) {
+        for (let j = 0; j < newAlfavit.length; j++) {
+            for (const newState_ of newStates) {
+                if (myIsContain(dostizimost[j][i], newState_)) {
+                    newWays.push([
+                        newStatesName[i],
+                        newAlfavit[j],
+                        newStatesName[newStates.indexOf(newState_)]
+                    ])
+                }
+            }
 
         }
     }
+    console.log(newWays);
+
+    createTable(newAlfavit, newStatesName, newEdges, newWays);
+
+    const finalStates = [];
+    const finalStatesName = [];
+    finalStates.push(newEdges[0]);
+    finalStatesName.push("P0");
+    const finalEdges = [["P0"], []];
+    const finalWays = [];
+
+
+    for (let i = 0; i < finalStates.length; i++) {
+        for (const newLetter of newAlfavit) {
+            let arrOfNewStates = [];
+            for (const newState_ of finalStates[i]) {
+                const arrOfNewStates_ = [];
+                for (const newWay_ of newWays) {
+                    if (newWay_[0] == newState_ && newWay_[1] == newLetter) {
+                        arrOfNewStates_.push(newWay_[2]);
+                    }
+                }
+                arrOfNewStates = myConcat(arrOfNewStates, arrOfNewStates_);
+            }
+            if(arrOfNewStates.length != 0){
+                let isFind = false;
+                for (let j = 0; j < finalStates.length; j++) {
+                    if (myEqual(arrOfNewStates, finalStates[j])) {
+                        isFind = true;
+                        finalWays.push([finalStatesName[i], newLetter, finalStatesName[j]]);
+                        break;
+                    }
+                }
+                if (!isFind) {
+                    finalStates.push(arrOfNewStates);
+                    finalStatesName.push(`P${finalStatesName.length}`);
+                    finalWays.push([finalStatesName[i], newLetter, finalStatesName[finalStatesName.length - 1]]);
+                }
+            }
+        }
+    }
+
+    for (const newEnd of newEdges[1]) {
+        for (let i = 0; i < finalStates.length; i++) {
+            if(finalStates[i].indexOf(newEnd) != -1 && finalEdges[1].indexOf(finalStatesName[i]) == -1){
+                finalEdges[1].push(finalStatesName[i]);
+            }
+        }
+    }
+
+    console.log("finalStates", finalStates);
+    console.log("finalWays", finalWays);
+
+    createTable(newAlfavit, finalStatesName, finalEdges, finalWays);
+    alfavit = newAlfavit;
+    states = finalStatesName;
+    edges = finalEdges;
+    ways = finalWays;
+    showDivs(5);
 }
-determ()
+
+
+function chekChain(){
+    const chain_input = document.getElementById("chain_input");
+    const chain =  chain_input.value;
+    const chain_p = document.getElementById("chain_p");
+    let myError = "";
+
+    for (const start_edge of edges[0]) {
+        try{
+            let currentState = start_edge;
+            for (const letter of chain) {
+                if(alfavit.indexOf(letter) == -1){
+                    throw new Error("Нет символа " + letter +" в алфавите")
+                }
+                let isFind = false;
+                for (const way_ of ways) {
+                    if(way_[0] == currentState && way_[1] == letter){
+                        isFind = true;
+                        currentState = way_[2];
+                        break;
+                    }
+                }
+                if(!isFind){
+                    throw new Error("Попал в тупик")
+                }
+            }
+            if(edges[1].indexOf(currentState) != -1){
+                chain_p.innerText = "автомат содержит цепочку"
+                return;
+            }
+        }catch(error){
+            myError = error.message;
+        }
+    }
+    if(myError == ""){
+        myError = "автомат не содержит цепочку"
+    }
+    chain_p.innerText = myError;
+    
+}
