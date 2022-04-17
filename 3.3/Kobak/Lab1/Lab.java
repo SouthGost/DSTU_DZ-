@@ -30,8 +30,10 @@ public class Lab {
 
         Task[] tasks = new Task[m];
         for (int i = 0; i < m; i++){
-            tasks[i] = new Task((int)(Math.round(Math.random() * 5 + 35)));
+            tasks[i] = new Task((int)(Math.round(Math.random() * 13 + 10))); //диапазон 8
+            System.out.print(tasks[i].time + " ");
         }
+        System.out.println();
         CS.set(tasks);
         CS.show();
     }

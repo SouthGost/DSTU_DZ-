@@ -1,19 +1,15 @@
-package Lab2;
+package Lab3;
 
 import java.util.Random;
 import java.util.Scanner;
 
 public class Lab {
     public static void main(String[] args) throws Exception {
-        Computer comp = new Computer(3,5);
+        Random rnd = new Random();
+        Computer comp = new Computer(4,8);
         System.out.println(comp.metod() + " время выполнения заданий на каждом из процессоров было бы минимальным");
     }
 }
-
-
-//17 9 15 13 11
-//        14 5 7 10 16
-//        12 11 12 8 14
 
 class Computer{
     private static Scanner in = new Scanner(System.in);
@@ -26,7 +22,7 @@ class Computer{
         potoks = new int[n][m];
         for(int i = 0; i<potoks.length; i++){
             for(int j = 0; j<potoks[i].length; j++){
-                potoks[i][j] = (int)(Math.random()*30) + 5;//(int)(Math.random()*30) + 5; //in.nextInt();
+                potoks[i][j] = (int)(Math.random()*12) + 10;//(int)(Math.random()*30) + 5; //in.nextInt();
             }
         }
     }
@@ -83,18 +79,23 @@ class Computer{
         for(int i = 0; i < raspisanie.length; i++){
             raspisanie[i] = 0;
         }
-        System.out.println("Расписание матрицы");
+        System.out.println("Квадратичная загруженность:");
         for(int i = 0; i < potoks[0].length; i++){
             int minj = 0;
+            System.out.println("Расчет");
+            System.out.println("("+potoks[minj][i]+"+"+raspisanie[minj]+")^2="+(int)Math.pow((raspisanie[minj] + potoks[minj][i]),2));
             for(int j = 1; j < raspisanie.length; j++){
-                if( raspisanie[minj] + potoks[minj][i] > raspisanie[j] + potoks[j][i] ){
+                System.out.println("("+potoks[j][i]+"+"+raspisanie[j]+")^2="+(int)Math.pow((raspisanie[j] + potoks[j][i]),2));
+                if( Math.pow((raspisanie[minj] + potoks[minj][i]),2) > Math.pow((raspisanie[j] + potoks[j][i]),2) ){
                     minj = j;
                 }
             }
+            System.out.println("Результат");
             raspisanie[minj] += potoks[minj][i];
             for(int j = 0; j < raspisanie.length; j++){
                 System.out.printf("%5d|",raspisanie[j]);
             }
+            System.out.println();
             System.out.println();
         }
         System.out.println("----------------------------");
