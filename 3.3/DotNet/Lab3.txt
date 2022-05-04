@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace _3._2_Net_Lab3
 {
@@ -29,11 +30,11 @@ namespace _3._2_Net_Lab3
             {
                 if (i != j)
                 {
-                    summ += arr[i];
+                    summ += Math.Abs(arr[i]);
                 }
                 
             }
-            return summ < arr[j];
+            return summ <= Math.Abs(arr[j]);
         }
 
         public static bool cheeckArr(double[][] arr)
@@ -57,59 +58,105 @@ namespace _3._2_Net_Lab3
 
         static void Main(string[] args)
         {
-            int n = 3;
-            int kMax = 3;
-            double[][] matix = new double[n][];
-            for(int i = 0; i < matix.Length; i++)
+            try
             {
-                matix[i] = new double[n+1];
-                for (int j = 0; j < matix[i].Length; j++)
+                string[] matrixText;
+                using (StreamReader reader = new StreamReader("matrix.txt"))
                 {
-                    matix[i][j] = getRandomNumber(1, 15);
-                    Console.Write($"{matix[i][j]} ");
+                    string text = reader.ReadToEnd();
+                    matrixText = text.Split("\r\n");
                 }
-                Console.WriteLine();
+                int n = matrixText.Length-1;
+                int kMax = Int32.Parse(matrixText[matrixText.Length - 1]);
+                double epsilon =  0.00001;
 
-            }
-            if (cheeckArr(matix))
-            {
-                double[] x = new double[n];
-                Task<double>[] taskArr = new Task<double>[n];
-                    //
-                for (int i = 0; i < matix.Length; i++)
+                double[][] matix = new double[n][];
+                for(int i = 0; i < matix.Length; i++)
                 {
-                    taskArr[i] = Task<double>.Run(() => {
-                    
-                        return matix[i][matix.Length] / matix[i][i];
-                    });
+                    matix[i] = new double[n+1];
+                    string[] matrixTextLine = matrixText[i].Split(" ");
+                    for (int j = 0; j < matix[i].Length; j++)
+                    {
+                        matix[i][j] = Double.Parse(matrixTextLine[j]);
+                        Console.Write($"{matix[i][j]} ");
+                    }
+                    Console.WriteLine();
+
                 }
-                for (int i = 0; i < matix.Length; i++)
+                if (cheeckArr(matix))
                 {
-                    x[i] = taskArr[i].Result;
-                }
-                for(int k = 0; k< kMax; k++)
-                {
+                    double[] x = new double[n];
+                    Task<double>[] taskArr = new Task<double>[n];
+                        //
                     for (int i = 0; i < matix.Length; i++)
                     {
-                        taskArr[i] = Task<double>.Run(() => getNextX(i,matix[i],x));
+                        int index = i;
+                        taskArr[i] = Task<double>.Run(() => {
+                    
+                            return matix[index][matix.Length] / matix[index][index];
+                        });
                     }
                     for (int i = 0; i < matix.Length; i++)
                     {
                         x[i] = taskArr[i].Result;
                     }
+                    double[] x1 = new double[n];
+                    int k = 0;
+                    while (k< kMax)
+                    {
+                        for (int i = 0; i < matix.Length; i++)
+                        {
+                            int index = i;
+                            taskArr[i] = Task<double>.Run(() => getNextX(index, matix[index],x));
+                        }
+                        double delta = 0;
+                        for (int i = 0; i < matix.Length; i++)
+                        {
+                            x1[i] = taskArr[i].Result;
+                            delta += Math.Abs(x1[i] - x[i]);
+                        }
+                        delta /= n;
+                        if (delta <= epsilon)
+                        {
+                            break;
+                        }
+                        for (int i = 0; i < x.Length; i++)
+                        {
+                            x[i] = x1[i];
+                        }
+                        k++;
+                    }
+                    if(k == kMax)
+                    {
+                        Console.WriteLine("Выполнено максимальное количество итераций");
+
+                    } else
+                    {
+                        Console.WriteLine($"Выполнено {k} итераций");
+                    }
+                    for(int i = 0; i < x.Length; i++)
+                    {
+                        
+                        Console.WriteLine(x[i]);
+                    }
+
+                    //Console.WriteLine(q.Result);
+
                 }
-                for(int i = 0; i < x.Length; i++)
+                else
                 {
-                    Console.WriteLine(x[i]);
+                    Console.WriteLine("Не выполнено условие сходимости");
                 }
-
-                //Console.WriteLine(q.Result);
-
             }
-            else
+            catch (Exception e)
             {
-                Console.WriteLine("Не выполнено условие сходимости");
+                Console.WriteLine(e.Message);
             }
         }
     }
 }
+
+// 1,59 0,86 -0,31 -8,18
+// 0,03 - 1,11 - 1,08 0,08
+// 0,97 0,02 - 1,08 0,06
+// 100
