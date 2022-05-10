@@ -1,10 +1,13 @@
 package RSA;
 
+import java.math.*;
+import java.util.Scanner;
+
 public class Lab {
 
 
     public static void main(String[] args) throws Exception {
-        Rsa rrr = new Rsa(Rsa.getNextSimple(Rsa.random(100,1000)),Rsa.getNextSimple(Rsa.random(100,1000)));
+        Rsa rrr = new Rsa(Rsa.getNextSimple(Rsa.random(50,500)),Rsa.getNextSimple(Rsa.random(50,500)));
     }
 }
 
@@ -13,27 +16,73 @@ class Rsa{
     private int q;
     private int n;
     private int fn;
+    private BigInteger sekretKey;
+    private BigInteger openKey;
 
     public Rsa(int p, int q) throws Exception {
         n = p*q;
         fn = (p-1)*(q-1);
-        int sekretKey = 3;//getNextSimple(random(1,fn/100));
-//        int openKey = random(100,fn);
-//        openKey += -((openKey * sekretKey) % fn)*sekretKey;
         int k = 2;
-        double openKey = (k*fn +1)*1.0/sekretKey;
-        while(openKey % 1 != 0){
-            k++;
-            openKey = (k*fn +1)*1.0/sekretKey;
-        }
+        sekretKey = BigInteger.valueOf(Rsa.getNextSimple(Rsa.random(10000,100000)));
+
         System.out.println("p " + p);
         System.out.println("q " + q);
-        System.out.println("Звакрытый ключ " + sekretKey);
-        System.out.println("Отырытый ключ " + openKey);
-        System.out.println("fN " + fn);
-//        System.out.println("Eiler " + Eiler(n));
         System.out.println("N " + n);
-        System.out.println("mod " + ((openKey * sekretKey)%fn));
+        System.out.println("fN " + fn);
+        System.out.println("Звакрытый ключ " + sekretKey);
+
+        openKey = BigInteger.valueOf(Rsa.getPreviousSimple(Rsa.random((int)Math.sqrt(fn),fn)));
+        int i = 0;
+        while( sekretKey.multiply(openKey).mod(BigInteger.valueOf(fn)).compareTo(BigInteger.valueOf(1)) != 0 ){
+            openKey = BigInteger.valueOf(Rsa.getPreviousSimple(Rsa.random((int)Math.sqrt(fn),fn)));
+            if(i > 100000){
+                throw new Exception("Черезмерное количество итераций");
+            }
+            i++;
+        }
+        System.out.println("Отырытый ключ " + openKey);
+        System.out.println("mod " + (sekretKey.multiply(openKey).mod(BigInteger.valueOf(fn))));
+        menu();
+    }
+
+    public void menu(){
+        Scanner in = new Scanner(System.in);
+        while(true){
+            System.out.println("1)Закодировать");
+            System.out.println("2)Разкодировать");
+            System.out.println("\n0)Выход");
+            String line = in.nextLine();
+            switch (line){
+                case "1":
+                    String str = in.nextLine();
+                    code(str);
+                    break;
+                case "2":
+                    String str2 = in.nextLine();
+                    decode(str2);
+                    break;
+                case "0":
+                    return;
+                default:
+                    System.out.println("Не понятная команда");
+                    break;
+            }
+        }
+    }
+
+    public void code(String str){
+        for (int i = 0; i < str.length(); i++) {
+            System.out.print(BigInteger.valueOf(str.charAt(i)).pow(openKey.intValue()).mod(BigInteger.valueOf(n)) + " ");
+        }
+        System.out.println("закончил");
+    }
+
+    public void decode(String str){
+        String[] splitStr = str.split(" ");
+        for(var word: splitStr){
+            System.out.print((char)BigInteger.valueOf(Integer.parseInt(word)).pow(sekretKey.intValue()).mod(BigInteger.valueOf(n)).intValue());
+        }
+        System.out.println();
     }
 
     public int nod(int n1, int n2) {
