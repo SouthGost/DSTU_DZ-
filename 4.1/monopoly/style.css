@@ -24,7 +24,6 @@
 }
 
 .big_place{
-    width: 900px;
-    height: 900px;
+    flex: 1;
     background-color:  orange;
 }
