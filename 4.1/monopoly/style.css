@@ -1,0 +1,30 @@
+.game{
+    display: flex;
+    justify-content: center;
+    width: fit-content;
+    height: fit-content;
+}
+
+.row{
+    display: flex;
+}
+
+.column{
+    display: flex;
+    flex-direction: column;
+}
+
+.pole{
+    box-sizing: border-box;
+    width: 100px;
+    height: 100px;
+    background-color:  orange;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+.big_place{
+    width: 900px;
+    height: 900px;
+    background-color:  orange;
+}
