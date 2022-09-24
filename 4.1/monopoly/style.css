@@ -1,29 +1,88 @@
-.game{
+.game {
     display: flex;
     justify-content: center;
     width: fit-content;
     height: fit-content;
 }
 
-.row{
+.row {
     display: flex;
 }
 
-.column{
+.column {
     display: flex;
     flex-direction: column;
 }
 
-.pole{
+.pole {
     box-sizing: border-box;
-    width: 100px;
-    height: 100px;
-    background-color:  orange;
+    width: 200px;
+    height: 300px;
+    background-color: orange;
     border: 1px solid black;
     border-radius: 5px;
+    overflow: hidden;
 }
 
-.big_place{
+.pole_side {
+    display: flex;
+    width: 300px;
+    height: 200px;
+}
+
+.angel {
+    width: 300px;
+}
+
+.color {
+    height: 85px;
+    width: 100%;
+    background-color: #fff;
+    border-bottom: 1px solid black;
+}
+
+.color_side {
+    width: 85px;
+    height: 100%;
+    background-color: #fff;
+    border-left: 1px solid black;
+}
+
+.pole_info {
+    display: flex;
+    flex-direction: column;
+    height: 200px;
+    justify-content: space-between;
+}
+
+.pole_info_left {
+    display: flex;
+    flex-direction: column;
+    width: 215px;
+    justify-content: space-between;
+    transform: rotate(90deg);
+}
+
+.pole_info_right{
+    display: flex;
+    flex-direction: column;
+    width: 215px;
+    justify-content: space-between;
+    transform: rotate(270deg);
+}
+
+p {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 10px;
+    width: 100%;
+    font-size: 20px;
+    text-align: center;
+}
+
+.name {}
+
+.big_place {
     flex: 1;
-    background-color:  orange;
+    background-color: orange;
 }
